@@ -17,39 +17,39 @@ There are various ways to use it:
 Read and write simple `Data` blocks
 
 ```
-    let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
-    let storedData = try keyVine.read(fro,: "name_for_my_data")
-    let myText = String(data: storedData, encoding: .utf8)
-    print(myText)
+let storedData = try keyVine.read(fro,: "name_for_my_data")
+let myText = String(data: storedData, encoding: .utf8)
+print(myText)
 
-    let myData = try! Data(contentsOf: ...)
-    try keyVine.write(myData, to: "name_for_my_data")
+let myData = try Data(contentsOf: ...)
+try keyVine.write(myData, to: "name_for_my_data")
 ```
 
 Using the subscript operator
-    
+
 ```
-    let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
-    let storedData = keyVine["name_for_my_data"]
-    let myText = String(data: storedData, encoding: .utf8)
-    print(myText)
+let storedData = keyVine["name_for_my_data"]
+let myText = String(data: storedData, encoding: .utf8)
+print(myText)
 
-    let myData = try! Data(contentsOf: ...)
-    keyVine["name_for_my_data"] = myData
+let myData = try Data(contentsOf: ...)
+keyVine["name_for_my_data"] = myData
 ```
 
 Using the property wrapper
-    
-```
-    @KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
-    var storedData: Data?
 
-    if let storedData {
-        let myText = String(data: storedData, encoding: .utf8)
-        print(myText)
-    }
+```
+@KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+var storedData: Data?
+
+if let storedData {
+    let myText = String(data: storedData, encoding: .utf8)
+    print(myText)
+}
 ```
 
 ### Reading and writing types
@@ -59,44 +59,44 @@ KeyVine already supports `String`, `Date`, `Bool`, `Int`, `Float` and `Double` b
 If the type already conforms to `LosslessStringConvertible` you can just add `KeyVineStringConvertible` instead without needing to create extra serialisation code.
 
 ```
-    extension MyInfo: KeyVineDataConvertible {
-        init?(keyVineData: Data?) {
-            ... // initialise from data
-        }
-        
-        var asKeyVineData: Data? {
-            let data = ... // Serialise to data
-            return data
-        }
+extension MyInfo: KeyVineDataConvertible {
+    init?(keyVineData: Data?) {
+        ... // initialise from data
     }
+    
+    var asKeyVineData: Data? {
+        let data = ... // Serialise to data
+        return data
+    }
+}
 }
 ```
 
 Using the subscript operator
 
 ```
-    let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
-    let myInfo: MyInfo = keyVine["my_info_key"]
+let myInfo: MyInfo = keyVine["my_info_key"]
 
-    ...
+...
 
-    keyVine["my_info_key"] = myInfo
+keyVine["my_info_key"] = myInfo
 ```
 
 Using the property wrapper
 
 ```
-    @KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
-    var storedInfo: MyInfo?
+@KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+var storedInfo: MyInfo?
 
-    if let storedInfo {
-        doStuff(with: storeInfo)
-    }
+if let storedInfo {
+    doStuff(with: storeInfo)
+}
 
-    ...
+...
 
-    storedInfo = MyInfo()
+storedInfo = MyInfo()
 ```
 
 ### License
