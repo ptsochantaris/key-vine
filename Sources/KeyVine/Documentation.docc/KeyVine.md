@@ -69,7 +69,6 @@ extension MyInfo: KeyVineDataConvertible {
         return data
     }
 }
-}
 ```
 
 Using the subscript operator
