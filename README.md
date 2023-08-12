@@ -54,7 +54,9 @@ Using the property wrapper
 
 ### Reading and writing types
 
-KeyVine will support `String`, `Date`, `Bool`, `Int`, `Float` and `Double` but you can also conform any type to `KeyVineDataConvertible` (or `KeyVineStringConvertible`, whatever makes more sense)
+KeyVine already supports `String`, `Date`, `Bool`, `Int`, `Float` and `Double` but you can also conform any type to `KeyVineDataConvertible`
+
+If the type already conforms to `LosslessStringConvertible` you can just add `KeyVineStringConvertible` instead without needing to create extra serialisation code.
 
 ```
     extension MyInfo: KeyVineDataConvertible {
