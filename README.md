@@ -8,13 +8,15 @@ Tha aim of KeyVine is to be a simple and very reusable Keychain access wrapper f
 
 There are far more evolved and fully featured packages out there to do this, but in my projects I keep finding the need for a super simple way to just create a few "Keychain properties" and access them with the minimum of fuss, with the most common defaults. This does exactly that.
 
-Initialise it with an identifier for the app and the team ID. There are various ways to use it:
+Initialise it with an identifier for the app and the team ID.
 
-### Reading and writing raw `Data`
+There are various ways to use it:
+
+### Reading and writing raw data
+
+Read and write simple `Data` blocks
 
 ```
-    // Read and write simple `Data` blocks
-
     let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
     let storedData = try keyVine.read(fro,: "name_for_my_data")
@@ -25,9 +27,9 @@ Initialise it with an identifier for the app and the team ID. There are various 
     try keyVine.write(myData, to: "name_for_my_data")
 ```
 
+Using the subscript operator
+    
 ```
-    // Using the subscript operator
-
     let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
     let storedData = keyVine["name_for_my_data"]
@@ -38,22 +40,23 @@ Initialise it with an identifier for the app and the team ID. There are various 
     keyVine["name_for_my_data"] = myData
 ```
 
+Using the property wrapper
+    
 ```
-    // Using the property wrapper
-
     @KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
     var storedData: Data?
 
     if let storedData {
-        print(String(data: storedData, encoding: .utf8)
+        let myText = String(data: storedData, encoding: .utf8)
+        print(myText)
     }
 ```
 
 ### Reading and writing types
 
-```
-    // Conform a type to KeyVineDataConvertible (or KeyVineStringConvertible, whatever makes more sense)
+KeyVine will support `String`, `Date`, `Bool`, `Int`, `Float` and `Double` but you can also conform any type to `KeyVineDataConvertible` (or `KeyVineStringConvertible`, whatever makes more sense)
 
+```
     extension MyInfo: KeyVineDataConvertible {
         init?(keyVineData: Data?) {
             ... // initialise from data
@@ -67,9 +70,9 @@ Initialise it with an identifier for the app and the team ID. There are various 
 }
 ```
 
-```
-    // Using the subscript operator
+Using the subscript operator
 
+```
     let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
     let myInfo: MyInfo = keyVine["my_info_key"]
@@ -79,9 +82,9 @@ Initialise it with an identifier for the app and the team ID. There are various 
     keyVine["my_info_key"] = myInfo
 ```
 
-```
-    // Using the property wrapper
+Using the property wrapper
 
+```
     @KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
     var storedInfo: MyInfo?
 
