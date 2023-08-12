@@ -17,7 +17,7 @@ public final class KeyVine {
         }
     }
 
-    public enum KeychainError: LocalizedError {
+    public enum KeyVineError: LocalizedError {
         case readFailure(OSStatus)
         case writeFailure(OSStatus)
 
@@ -83,7 +83,7 @@ public final class KeyVine {
         case errSecItemNotFound:
             return nil
         default:
-            throw KeychainError.readFailure(status)
+            throw KeyVineError.readFailure(status)
         }
     }
 
@@ -117,7 +117,7 @@ public final class KeyVine {
         }
 
         if status != errSecSuccess {
-            throw KeychainError.writeFailure(status)
+            throw KeyVineError.writeFailure(status)
         }
     }
 

@@ -1,4 +1,4 @@
-# KeyVine
+# ``KeyVine``
 
 A Keychain access wrapper in Swift, because the world needs more of these
 
@@ -93,6 +93,3 @@ Initialise it with an identifier for the app and the team ID. There are various 
 
     storedInfo = MyInfo()
 ```
-
-### License
-Copyright (c) 2023 Paul Tsochantaris. Licensed under the MIT License, see LICENSE for details.
