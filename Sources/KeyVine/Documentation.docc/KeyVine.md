@@ -14,7 +14,7 @@ There are various ways to use it:
 
 ### Reading and writing raw data
 
-Read and write simple `Data` blocks
+To read and write simple `Data` blocks
 
 ```
 let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
@@ -30,7 +30,7 @@ try keyVine.write(myData, to: "name_for_my_data")
 Using the subscript operator
 
 ```
-let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+var keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 
 let storedData = keyVine["name_for_my_data"]
 let myText = String(data: storedData, encoding: .utf8)
