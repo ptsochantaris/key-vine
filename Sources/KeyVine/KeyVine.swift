@@ -19,7 +19,7 @@ public struct KeyVine {
         let key: String
         var vine: KeyVine
         
-        init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility) {
+        public init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility) {
             self.key = key
             vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
         }
@@ -44,7 +44,7 @@ public struct KeyVine {
         var vine: KeyVine
         let defaultValue: Value
         
-        init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility, defaultValue: Value) {
+        public init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility, defaultValue: Value) {
             self.key = key
             self.defaultValue = defaultValue
             vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
