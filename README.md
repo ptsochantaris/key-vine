@@ -85,12 +85,20 @@ keyVine["my_info_key"] = myInfo
 
 Using the property wrapper
 
+Provide a default for a non-optional property
 ```
-@KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+@KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567", defaultValue: "Hello world!")
+var greeting: String
+
+print(greeting) // 'Hello world!'
+```
+Or not
+```
+@KeyVine.OptionalProperty(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 var storedInfo: MyInfo?
 
 if let storedInfo {
-    doStuff(with: storeInfo)
+    doStuff(with: storedInfo)
 }
 
 ...

@@ -12,9 +12,9 @@ Initialise it with an identifier for the app and the team ID.
 
 There are various ways to use it:
 
-### Reading and writing raw data
+## Reading and writing raw data
 
-To read and write simple `Data` blocks
+#### To read and write simple `Data` blocks
 
 ```
 let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
@@ -27,7 +27,7 @@ let myData = try Data(contentsOf: ...)
 try keyVine.write(myData, to: "name_for_my_data")
 ```
 
-Using the subscript operator
+#### Using the subscript operator
 
 ```
 var keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
@@ -40,7 +40,7 @@ let myData = try Data(contentsOf: ...)
 keyVine["name_for_my_data"] = myData
 ```
 
-Using the property wrapper
+#### Using the property wrapper
 
 ```
 @KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
@@ -52,11 +52,9 @@ if let storedData {
 }
 ```
 
-### Reading and writing types
+## Reading and writing types
 
 KeyVine already supports `String`, `Date`, `Bool`, `Int`, `Float` and `Double` but you can also conform any type to `KeyVineDataConvertible`
-
-If the type already conforms to `LosslessStringConvertible` you can just add `KeyVineStringConvertible` instead without needing to create extra serialisation code.
 
 ```
 extension MyInfo: KeyVineDataConvertible {
@@ -71,7 +69,13 @@ extension MyInfo: KeyVineDataConvertible {
 }
 ```
 
-Using the subscript operator
+If the type already conforms to `LosslessStringConvertible` you can just add `KeyVineStringConvertible` instead without needing to create extra serialisation code.
+
+```
+extension UInt32: KeyVineStringConvertible {}
+```
+
+#### Using the subscript operator
 
 ```
 let keyVine = KeyVine(appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
@@ -83,14 +87,22 @@ let myInfo: MyInfo = keyVine["my_info_key"]
 keyVine["my_info_key"] = myInfo
 ```
 
-Using the property wrapper
+#### Using the property wrapper
 
+Provide a default for a non-optional property
 ```
-@KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+@KeyVine.Property(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567", defaultValue: "Hello world!")
+var greeting: String
+
+print(greeting) // 'Hello world!'
+```
+Or use `OptionalProperty` which doesn't require a default
+```
+@KeyVine.OptionalProperty(key: "my_info_key", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
 var storedInfo: MyInfo?
 
 if let storedInfo {
-    doStuff(with: storeInfo)
+    doStuff(with: storedInfo)
 }
 
 ...

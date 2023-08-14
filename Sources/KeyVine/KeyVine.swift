@@ -6,7 +6,7 @@ public struct KeyVine {
     /// Use this to access values from the keychain using plain property syntax.
     ///
     /// ```
-    /// @KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
+    /// @KeyVine.OptionalProperty(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567")
     /// var storedData: Data?
     ///
     /// if let storedData {
@@ -15,7 +15,7 @@ public struct KeyVine {
     /// }
     /// ```
     @propertyWrapper
-    public struct Property<Value: KeyVineDataConvertible> {
+    public struct OptionalProperty<Value: KeyVineDataConvertible> {
         let key: String
         var vine: KeyVine
         
@@ -29,7 +29,33 @@ public struct KeyVine {
             set { vine[key] = newValue }
         }
     }
-    
+
+    /// Use this to access values from the keychain using plain property syntax, using a default value if none is found in the Keychain.
+    ///
+    /// ```
+    /// @KeyVine.Property(key: "name_for_my_data", appIdentifier: "com.myApp.identifier", teamId: "ABC1234567", defaultValue: "Hello world!")
+    /// var greeting: String
+    ///
+    /// print(greeting)
+    /// ```
+    @propertyWrapper
+    public struct Property<Value: KeyVineDataConvertible> {
+        let key: String
+        var vine: KeyVine
+        let defaultValue: Value
+        
+        init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility, defaultValue: Value) {
+            self.key = key
+            self.defaultValue = defaultValue
+            vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
+        }
+        
+        public var wrappedValue: Value? {
+            get { vine[key] ?? defaultValue }
+            set { vine[key] = newValue }
+        }
+    }
+
     /// An error that can be thrown from the read and write methods. Please note that, beacuse of Swift language constraints,
     /// the property and subscript syntax cannot throw errors.
     public enum KeyVineError: LocalizedError {
