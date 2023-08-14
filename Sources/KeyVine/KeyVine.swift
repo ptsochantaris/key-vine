@@ -50,7 +50,7 @@ public struct KeyVine {
             vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
         }
         
-        public var wrappedValue: Value? {
+        public var wrappedValue: Value {
             get { vine[key] ?? defaultValue }
             set { vine[key] = newValue }
         }
