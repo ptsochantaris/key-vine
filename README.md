@@ -1,10 +1,10 @@
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ptsochantaris/key-vine) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ptsochantaris/key-vine)
+
 # KeyVine
 
 A Keychain access wrapper in Swift, because the world needs more of these
 
 It is currently used in [Trailer](https://github.com/ptsochantaris/trailer)
-
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ptsochantaris/key-vine) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ptsochantaris/key-vine)
 
 ## Overview
 
@@ -16,7 +16,7 @@ Initialise it with an identifier for the app and the team ID.
 
 Full docs [can be found here](https://swiftpackageindex.com/ptsochantaris/key-vine/documentation)
 
-There are various ways to use it:
+Here are some examples:
 
 ### Reading and writing raw data
 
