@@ -6,7 +6,8 @@ A Keychain access wrapper in Swift, because the world needs more of these
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ptsochantaris/key-vine) [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fptsochantaris%2Fkey-vine%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ptsochantaris/key-vine)
 
-It is currently used in [Trailer](https://github.com/ptsochantaris/trailer)
+Currently used in
+- [Trailer](https://github.com/ptsochantaris/trailer)
 
 Detailed docs [can be found here](https://swiftpackageindex.com/ptsochantaris/key-vine/documentation)
 
@@ -17,6 +18,8 @@ The aim of KeyVine is to be a simple and very reusable Keychain access wrapper f
 There are far more evolved and fully featured packages out there to do this, but in my projects I keep finding the need for a super simple way to just create a few "Keychain properties" and access them with the minimum of fuss, with the most common defaults. This does exactly that.
 
 Initialise it with an identifier for the app and the team ID.
+
+## Usage
 
 There are various ways to use it:
 
@@ -114,5 +117,5 @@ if let storedInfo {
 storedInfo = MyInfo()
 ```
 
-### License
+## License
 Copyright (c) 2023 Paul Tsochantaris. Licensed under the MIT License, see LICENSE for details.
