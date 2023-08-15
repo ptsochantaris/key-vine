@@ -1,3 +1,5 @@
+<img src="https://ptsochantaris.github.io/trailer/KeyVineLogo.webp" alt="Logo" width=256>
+
 # KeyVine
 
 A Keychain access wrapper in Swift, because the world needs more of these
