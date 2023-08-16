@@ -2,7 +2,5 @@
 import XCTest
 
 final class KeyVineTests: XCTestCase {
-    func testExample() throws {
-        
-    }
+    func testExample() throws {}
 }

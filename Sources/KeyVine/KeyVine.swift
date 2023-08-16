@@ -18,12 +18,12 @@ public struct KeyVine {
     public struct OptionalProperty<Value: KeyVineDataConvertible> {
         let key: String
         var vine: KeyVine
-        
+
         public init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility) {
             self.key = key
             vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
         }
-        
+
         public var wrappedValue: Value? {
             get { vine[key] }
             set { vine[key] = newValue }
@@ -43,13 +43,13 @@ public struct KeyVine {
         let key: String
         var vine: KeyVine
         let defaultValue: Value
-        
+
         public init(key: String, appIdentifier: String, teamId: String, accessibility: Accessibility, defaultValue: Value) {
             self.key = key
             self.defaultValue = defaultValue
             vine = KeyVine(appIdentifier: appIdentifier, teamId: teamId, accessibility: accessibility)
         }
-        
+
         public var wrappedValue: Value {
             get { vine[key] ?? defaultValue }
             set { vine[key] = newValue }
@@ -61,7 +61,7 @@ public struct KeyVine {
     public enum KeyVineError: LocalizedError {
         case readFailure(OSStatus)
         case writeFailure(OSStatus)
-        
+
         public var errorDescription: String? {
             switch self {
             case let .readFailure(status):
@@ -79,7 +79,7 @@ public struct KeyVine {
             }
         }
     }
-    
+
     /// The accessibility value of the stored values. If none if provided `afterFirstUnlock` is used, which is the most permissive value.
     public enum Accessibility {
         /// The data in the keychain can only be accessed when the device is unlocked. Only available if a passcode is set on the device.
@@ -92,7 +92,7 @@ public struct KeyVine {
         case afterFirstUnlockThisDeviceOnly
         /// The data in the keychain item cannot be accessed after a restart until the device has been unlocked once by the user.
         case afterFirstUnlock
-        
+
         var cfValue: CFString {
             switch self {
             case .afterFirstUnlock:
@@ -108,9 +108,9 @@ public struct KeyVine {
             }
         }
     }
-    
+
     private let templateQuery: [CFString: Any]
-    
+
     /// Initialise a key vine using a pair of identifiers. They can in theory be anything, but for sandboxed and app store apps,
     /// or apps that use keychain sharing, this should be the same as the app's identifier and the team ID which is used to sign the app.
     ///
@@ -120,12 +120,12 @@ public struct KeyVine {
     /// ```
     public init(appIdentifier: String, teamId: String, accessibility: Accessibility = .afterFirstUnlock) {
         templateQuery = [kSecClass: kSecClassGenericPassword,
-                   kSecAttrService: appIdentifier,
-     kSecUseDataProtectionKeychain: kCFBooleanTrue!,
-                kSecAttrAccessible: accessibility.cfValue,
-               kSecAttrAccessGroup: "\(teamId).\(appIdentifier)"]
+                         kSecAttrService: appIdentifier,
+                         kSecUseDataProtectionKeychain: kCFBooleanTrue!,
+                         kSecAttrAccessible: accessibility.cfValue,
+                         kSecAttrAccessGroup: "\(teamId).\(appIdentifier)"]
     }
-    
+
     /// Reads a `Data` object from a keychain for a specific key.
     ///
     /// ```
@@ -140,7 +140,7 @@ public struct KeyVine {
         query[kSecAttrAccount] = key
         query[kSecMatchLimit] = kSecMatchLimitOne
         query[kSecReturnData] = kCFBooleanTrue
-        
+
         var itemCopy: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &itemCopy)
         switch status {
@@ -152,7 +152,7 @@ public struct KeyVine {
             throw KeyVineError.readFailure(status)
         }
     }
-    
+
     /// Stores a `Data` object in the keychain from a specific key. If the data is `nil` the item is removed. If the item already exists, it is replaced.
     ///
     /// ```
@@ -165,22 +165,22 @@ public struct KeyVine {
     public func write(data: Data?, to key: String) throws {
         var query = templateQuery
         var status: OSStatus
-        
+
         query[kSecAttrAccount] = key
-        
+
         if let data {
             query[kSecValueData] = data
             status = SecItemAdd(query as CFDictionary, nil)
-            
+
             switch status {
             case errSecDuplicateItem:
                 query[kSecValueData] = nil
                 status = SecItemUpdate(query as CFDictionary, [kSecValueData: data] as CFDictionary)
-                
+
             default:
                 break
             }
-            
+
         } else {
             status = SecItemDelete(query as CFDictionary)
             switch status {
@@ -190,12 +190,12 @@ public struct KeyVine {
                 break
             }
         }
-        
+
         if status != errSecSuccess {
             throw KeyVineError.writeFailure(status)
         }
     }
-    
+
     /// Read and write values using subscript syntax
     ///
     /// ```

@@ -4,7 +4,7 @@ import Foundation
 public protocol KeyVineDataConvertible {
     /// Should return a data representation of itself.
     var keyVineData: Data? { get }
-    
+
     /// Initialise a new instance of this type using the provided data.
     init?(keyVineData: Data?)
 }
