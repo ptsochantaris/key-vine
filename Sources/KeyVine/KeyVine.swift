@@ -2,7 +2,7 @@ import Foundation
 
 /// An instance of a KeyVine. You don't need to instantiate this if you plan to use the
 /// property wrappers, which create and cache their own instances when needed.
-public struct KeyVine {
+public struct KeyVine: Sendable {
     /// Use this to access values from the keychain using plain property syntax.
     ///
     /// ```
@@ -66,15 +66,15 @@ public struct KeyVine {
             switch self {
             case let .readFailure(status):
                 if let errorMessage = SecCopyErrorMessageString(status, nil) {
-                    return "Keychain read failed with error \(status): \(errorMessage)"
+                    "Keychain read failed with error \(status): \(errorMessage)"
                 } else {
-                    return "Keychain read failed with error \(status)"
+                    "Keychain read failed with error \(status)"
                 }
             case let .writeFailure(status):
                 if let errorMessage = SecCopyErrorMessageString(status, nil) {
-                    return "Keychain write failed with error \(status): \(errorMessage)"
+                    "Keychain write failed with error \(status): \(errorMessage)"
                 } else {
-                    return "Keychain write failed with error \(status)"
+                    "Keychain write failed with error \(status)"
                 }
             }
         }
@@ -96,20 +96,20 @@ public struct KeyVine {
         var cfValue: CFString {
             switch self {
             case .afterFirstUnlock:
-                return kSecAttrAccessibleAfterFirstUnlock
+                kSecAttrAccessibleAfterFirstUnlock
             case .afterFirstUnlockThisDeviceOnly:
-                return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+                kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
             case .whenPasscodeSetThisDeviceOnly:
-                return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+                kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
             case .whenUnlocked:
-                return kSecAttrAccessibleWhenUnlocked
+                kSecAttrAccessibleWhenUnlocked
             case .whenUnlockedThisDeviceOnly:
-                return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+                kSecAttrAccessibleWhenUnlockedThisDeviceOnly
             }
         }
     }
 
-    private let templateQuery: [CFString: Any]
+    private nonisolated(unsafe) let templateQuery: [CFString: Any]
 
     /// Initialise a key vine using a pair of identifiers. They can in theory be anything, but for sandboxed and app store apps,
     /// or apps that use keychain sharing, this should be the same as the app's identifier and the team ID which is used to sign the app.
